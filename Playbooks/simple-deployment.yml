@@ -1,0 +1,20 @@
+---
+- name: Playbook to install Apache2 and deploy a simple HTTP webpage
+  hosts: webservers
+  tasks:
+    - name: Install Apache2 dependency
+      apt: # nama modul
+        name:
+          - apache2
+          - php
+          - php-mysql
+        state: present
+    - name: Copy source code to target nodes
+      become: true
+      copy:
+        src: ./index.html
+        dest: /var/www/html
+        owner: www-data
+        group: www-data
+        mode: 0644
+    - debug: var=output.stdout_lines

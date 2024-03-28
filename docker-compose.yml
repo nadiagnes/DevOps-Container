@@ -1,0 +1,23 @@
+version: '3.4'
+services:
+  control_node:
+    build: ./Server
+    ports:
+      - '1022:22'
+    expose:
+      - '22'
+    links:
+      - "target_node_1:target_node_1"
+      - "target_node_2:target_node_2"
+  target_node_1:
+    build: ./Server
+    ports:
+      - '2022:22'
+    expose:
+      - '22'
+  target_node_2:
+    build: ./Server
+    ports:
+      - '3022:22'
+    expose:
+      - '22'
